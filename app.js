@@ -61,9 +61,14 @@ app.use((error, req, res, next) => {
 
 mongoose
 	.connect(
-		'mongodb+srv://Cardfaux:Fsuore1234@cluster0-8lwhh.mongodb.net/messages?retryWrites=true&w=majority'
+		'mongodb+srv://Cardfaux:Fsuore1234@cluster0-8lwhh.mongodb.net/messages?retryWrites=true&w=majority',
+		{
+			useNewUrlParser: true,
+			useUnifiedTopology: true
+		}
 	)
 	.then((result) => {
+		console.log('DataBase Connected!');
 		const server = app.listen(8080);
 		const io = require('./socket').init(server);
 		io.on('connection', (socket) => {
